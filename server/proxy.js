@@ -25,12 +25,7 @@ const { server: serverConfig } = getServerConfig()
 const NEED_OMIT_HEADERS = ['cookie', 'referer']
 
 const k8sResourceProxy = {
-  target: {
-    protocol: 'https:',
-    host: 'ks-apiserver',
-    port: 443,
-    pfx: fs.readFileSync('/etc/kubesphere/pki/client.p12', 'utf8')
-  },
+  target: serverConfig.apiServer.url,
   changeOrigin: true,
   events: {
     proxyReq(proxyReq, req) {
