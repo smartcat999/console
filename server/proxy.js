@@ -29,7 +29,7 @@ const k8sResourceProxy = {
     protocol: 'https:',
     host: 'ks-apiserver',
     port: 443,
-    pfx: fs.readFileSync('/etc/kubesphere/pki/ca.crt', 'utf8')
+    pfx: fs.readFileSync('/etc/kubesphere/pki/client.p12', 'utf8')
   },
   changeOrigin: true,
   events: {
