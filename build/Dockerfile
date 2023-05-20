@@ -33,7 +33,8 @@ RUN mv /kubesphere/package.json /out/
 FROM node:12-alpine3.14 as env
 
 COPY ./ca.crt /usr/local/
-RUN apk add curl && mkdir /usr/share/ca-certificates/kubesphere/ \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories  \
+    && apk update && apk add curl && mkdir /usr/share/ca-certificates/kubesphere/ \
     && mv /usr/local/ca.crt /usr/share/ca-certificates/kubesphere/ \
     && echo "kubesphere/ca.crt" >> /etc/ca-certificates.conf \
     && update-update-ca-certificates
