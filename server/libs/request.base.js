@@ -15,7 +15,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
-
+const http = require('http')
+const https = require('https')
 const fetch = require('node-fetch').default
 const merge = require('lodash/merge')
 const isEmpty = require('lodash/isEmpty')
