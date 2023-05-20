@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
-const fs = require("fs");
+const fs = require("fs")
 const http = require('http')
 
 const { getServerConfig } = require('./libs/utils')
@@ -27,11 +27,11 @@ const NEED_OMIT_HEADERS = ['cookie', 'referer']
 const k8sResourceProxy = {
   target: serverConfig.apiServer.url,
   changeOrigin: true,
-  secure: true,
-  ssl: {
-    key: fs.readFileSync('/etc/kubesphere/pki/tls.key', 'utf8'),
-    cert: fs.readFileSync('/etc/kubesphere/pki/tls.crt', 'utf8')
-  },
+  secure: false,
+  // ssl: {
+  //   key: fs.readFileSync('/etc/kubesphere/pki/tls.key', 'utf8'),
+  //   cert: fs.readFileSync('/etc/kubesphere/pki/tls.crt', 'utf8')
+  // },
   events: {
     proxyReq(proxyReq, req) {
       // Set authorization
