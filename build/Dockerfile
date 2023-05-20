@@ -30,10 +30,20 @@ RUN mv /kubesphere/server/locales \
 #RUN ["/bin/bash", "-c", "mv /kubesphere/server/{locales,public,sample,views,config.yaml} /out/server/"]
 RUN mv /kubesphere/package.json /out/
 
+FROM node:12-alpine3.14 as env
+
+COPY ./ca.crt /usr/local/
+RUN apk add curl && mkdir /usr/share/ca-certificates/kubesphere/ \
+    && mv /usr/local/ca.crt /usr/share/ca-certificates/kubesphere/ \
+    && echo "kubesphere/ca.crt" >> /etc/ca-certificates.conf \
+    && update-update-ca-certificates
+
 ##############
 # Final Image
 ##############
-FROM node:12-alpine3.14 as base_os_context
+FROM scratch as base_os_context
+
+COPY --from=env / /
 
 RUN adduser -D -g kubesphere -u 1002 kubesphere && \
     mkdir -p /opt/kubesphere/console && \
