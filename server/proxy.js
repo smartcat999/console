@@ -27,7 +27,11 @@ const NEED_OMIT_HEADERS = ['cookie', 'referer']
 const k8sResourceProxy = {
   target: serverConfig.apiServer.url,
   changeOrigin: true,
-  secure: false,
+  secure: true,
+  ssl: {
+    key: fs.readFileSync('/etc/kubesphere/pki/tls.key', 'utf8'),
+    cert: fs.readFileSync('/etc/kubesphere/pki/tls.crt', 'utf8')
+  },
   events: {
     proxyReq(proxyReq, req) {
       // Set authorization
