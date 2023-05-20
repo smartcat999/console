@@ -9,7 +9,8 @@ ARG YARN_VERSION=1.22.4
 
 WORKDIR /kubesphere
 ADD . /kubesphere/
-
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories && \
+        apk update
 RUN apk add --no-cache --virtual .build-deps ca-certificates python2 python3 py3-pip make openssl g++ bash
 RUN npm install yarn@${YARN_VERSION}
 
