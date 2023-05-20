@@ -27,6 +27,7 @@ const NEED_OMIT_HEADERS = ['cookie', 'referer']
 const k8sResourceProxy = {
   target: serverConfig.apiServer.url,
   changeOrigin: true,
+  secure: false,
   events: {
     proxyReq(proxyReq, req) {
       // Set authorization
