@@ -37,7 +37,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     && apk update && apk add curl && mkdir /usr/share/ca-certificates/kubesphere/ \
     && mv /usr/local/ca.crt /usr/share/ca-certificates/kubesphere/ \
     && echo "kubesphere/ca.crt" >> /etc/ca-certificates.conf \
-    && update-update-ca-certificates
+    && update-ca-certificates
 
 ##############
 # Final Image
