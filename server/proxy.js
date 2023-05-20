@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
-
+const fs = require("fs");
 const http = require('http')
 
 const { getServerConfig } = require('./libs/utils')
