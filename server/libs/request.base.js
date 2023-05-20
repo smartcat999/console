@@ -68,6 +68,7 @@ function buildRequest(method, url, params = {}, options) {
       headers: {
         'content-type': 'application/json',
       },
+      insecureHTTPParser: true
     },
     options
   )
