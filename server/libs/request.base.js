@@ -17,6 +17,7 @@
  */
 const http = require('http')
 const https = require('https')
+const rootCas = require('ssl-root-cas').create();
 const fetch = require('node-fetch').default
 const merge = require('lodash/merge')
 const isEmpty = require('lodash/isEmpty')
@@ -64,8 +65,10 @@ function buildRequest(method, url, params = {}, options) {
   const httpAgent = new http.Agent({
     keepAlive: true
   });
+  rootCas.addFile("/usr/share/ca-certificates/kubesphere/ca.crt")
   const httpsAgent = new https.Agent({
-    keepAlive: true
+    keepAlive: true,
+    ca: rootCas
   });
   const request = merge(
     {
