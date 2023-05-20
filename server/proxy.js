@@ -26,7 +26,7 @@ const NEED_OMIT_HEADERS = ['cookie', 'referer']
 
 const k8sResourceProxy = {
   target: {
-    protocol: 'https',
+    protocol: 'https:',
     host: 'ks-apiserver',
     port: 443,
     pfx: fs.readFileSync('/etc/kubesphere/pki/ca.cert', 'utf8')
