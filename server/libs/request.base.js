@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
-const http = require('http')
-const https = require('https')
-const rootCas = require('ssl-root-cas').create();
 const fetch = require('node-fetch').default
 const merge = require('lodash/merge')
 const isEmpty = require('lodash/isEmpty')
@@ -62,14 +59,6 @@ module.exports = methods.reduce(
  */
 function buildRequest(method, url, params = {}, options) {
   let requestURL = url
-  const httpAgent = new http.Agent({
-    keepAlive: true
-  });
-  rootCas.addFile("/usr/share/ca-certificates/kubesphere/ca.crt")
-  const httpsAgent = new https.Agent({
-    keepAlive: true,
-    ca: rootCas
-  });
   const request = merge(
     {
       method,
@@ -78,14 +67,6 @@ function buildRequest(method, url, params = {}, options) {
       headers: {
         'content-type': 'application/json',
       },
-      insecureHTTPParser: true,
-      agent: function(_parsedURL) {
-        if (_parsedURL.protocol == 'http:') {
-          return httpAgent;
-        } else {
-          return httpsAgent;
-        }
-      }
     },
     options
   )
