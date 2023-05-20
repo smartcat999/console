@@ -60,6 +60,12 @@ module.exports = methods.reduce(
  */
 function buildRequest(method, url, params = {}, options) {
   let requestURL = url
+  const httpAgent = new http.Agent({
+    keepAlive: true
+  });
+  const httpsAgent = new https.Agent({
+    keepAlive: true
+  });
   const request = merge(
     {
       method,
@@ -68,7 +74,14 @@ function buildRequest(method, url, params = {}, options) {
       headers: {
         'content-type': 'application/json',
       },
-      insecureHTTPParser: true
+      insecureHTTPParser: true,
+      agent: function(_parsedURL) {
+        if (_parsedURL.protocol == 'http:') {
+          return httpAgent;
+        } else {
+          return httpsAgent;
+        }
+      }
     },
     options
   )
