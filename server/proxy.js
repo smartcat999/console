@@ -32,18 +32,6 @@ const k8sResourceProxy = {
     pfx: fs.readFileSync('/etc/kubesphere/pki/client.p12'),
     passphrase: '',
   },
-  agent: function (_parsedURL) {
-    if (_parsedURL.protocol == 'http:') {
-      return new http.Agent({
-        keepAlive: true
-      });
-    } else {
-      return new https.Agent({
-        rejectUnauthorized: true,
-        keepAlive: true
-      });
-    }
-  },
   changeOrigin: true,
   events: {
     proxyReq(proxyReq, req) {
