@@ -15,6 +15,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
+const https = require('https')
+const http = require('http')
 const fetch = require('node-fetch').default
 const merge = require('lodash/merge')
 const isEmpty = require('lodash/isEmpty')
@@ -67,6 +69,18 @@ function buildRequest(method, url, params = {}, options) {
       headers: {
         'content-type': 'application/json',
       },
+      agent: function (_parsedURL) {
+        if (_parsedURL.protocol == 'http:') {
+          return new http.Agent({
+            rejectUnauthorized: false,
+          });
+        } else {
+          return new https.Agent({
+            rejectUnauthorized: false,
+          });
+        }
+      },
+      followRedirect: false,
     },
     options
   )
@@ -85,7 +99,7 @@ function buildRequest(method, url, params = {}, options) {
   } else {
     request.body = JSON.stringify(params)
   }
-
+  console.warn("fetch url: ", requestURL)
   return fetch(requestURL, request).then(handleResponse)
 }
 
