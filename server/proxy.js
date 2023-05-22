@@ -17,6 +17,7 @@
  */
 const fs = require("fs")
 const http = require('http')
+const https = require('https')
 
 const { getServerConfig } = require('./libs/utils')
 
@@ -32,6 +33,9 @@ const k8sResourceProxy = {
     pfx: fs.readFileSync('/etc/kubesphere/pki/client.p12'),
     passphrase: '',
   },
+  agent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
   changeOrigin: true,
   events: {
     proxyReq(proxyReq, req) {
