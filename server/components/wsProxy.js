@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with KubeSphere Console.  If not, see <https://www.gnu.org/licenses/>.
  */
-
+const https = require('https')
 const httpProxy = require('http-proxy')
 
 const { getServerConfig } = require('../libs/utils')
@@ -25,6 +25,9 @@ const serverConfig = getServerConfig().server
 module.exports = function(app) {
   const wsProxy = httpProxy.createProxyServer({
     ws: true,
+    agent: new https.Agent({
+      rejectUnauthorized: false,
+    }),
     changeOrigin: true,
   })
 
