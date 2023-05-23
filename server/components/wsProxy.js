@@ -25,9 +25,6 @@ const serverConfig = getServerConfig().server
 module.exports = function(app) {
   const wsProxy = httpProxy.createProxyServer({
     ws: true,
-    agent: new https.Agent({
-      rejectUnauthorized: false,
-    }),
     changeOrigin: true,
   })
 
