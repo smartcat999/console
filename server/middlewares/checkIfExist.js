@@ -29,7 +29,7 @@ module.exports = async (ctx, next) => {
         url: ctx.url,
         token: ctx.cookies.get('token'),
       })
-
+      console.log(`send_gateway_request `, ctx.method, ctx.url, ctx.status)
       ctx.status = 200
 
       // custom api rules
