@@ -196,11 +196,12 @@ export default class CDStore extends Base {
         'kapis/tenant.kubesphere.io/v1alpha2/clusters'
       )
 
-      const cluster = clusters.items.find(item =>
-        has(item, 'metadata.labels["cluster-role.kubesphere.io/host"]')
-      )
-
-      hostName = get(cluster, 'metadata.name', 'host')
+      if (!isEmpty(clusters.items)) {
+        const cluster = clusters.items.find(item =>
+            has(item, 'metadata.labels["cluster-role.kubesphere.io/host"]')
+        )
+        hostName = get(cluster, 'metadata.name', 'host')
+      }
     }
 
     if (isEmpty(result)) {
