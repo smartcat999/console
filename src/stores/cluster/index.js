@@ -115,7 +115,12 @@ export default class ClusterStore extends Base {
       result = await request.get(this.getTenantUrl({}), params)
     }
 
-    const data = get(result, 'items', []).map(this.mapper)
+    let data = []
+    if (get(result, 'items', []) == null) {
+      data = []
+    } else {
+      data = get(result, 'items', []).map(this.mapper)
+    }
 
     this.list.update({
       data: more ? [...this.list.data, ...data] : data,
