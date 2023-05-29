@@ -204,7 +204,7 @@ export default class CDStore extends Base {
       }
     }
 
-    if (isEmpty(result)) {
+    if (isEmpty(result) || result == null) {
       this.clustersList = [
         {
           server: 'https://kubernetes.default.svc',
